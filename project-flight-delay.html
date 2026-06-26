@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Delay Forecasting Model — Grey Tiger Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-deep:   #0A1628;
+      --navy-mid:    #1E3A5F;
+      --gold:        #C9A84C;
+      --gold-dim:    #9A7A35;
+      --steel:       #6B8CAE;
+      --off-white:   #F0F4F8;
+      --muted:       #A8BCCC;
+      --card-border: rgba(255,255,255,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy-deep);
+      color: var(--off-white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .back-bar {
+      padding: 1rem 2.5rem;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--steel);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold); }
+    .back-brand {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--off-white);
+      text-transform: uppercase;
+    }
+    .back-brand span { color: var(--gold); }
+    .page { max-width: 900px; margin: 0 auto; padding: 4rem 2.5rem 6rem; }
+    .proj-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .status-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      background: rgba(107,140,174,0.12);
+      color: var(--steel);
+      border: 1px solid rgba(107,140,174,0.25);
+    }
+    .proj-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      color: var(--off-white);
+      margin-bottom: 1.5rem;
+    }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 2.5rem;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--steel);
+      background: rgba(107,140,174,0.08);
+      border: 1px solid rgba(107,140,174,0.2);
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .proj-divider {
+      height: 1px;
+      background: linear-gradient(to right, var(--gold-dim), transparent);
+      margin-bottom: 3rem;
+    }
+    .section { margin-bottom: 3rem; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      color: var(--off-white);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .section p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+    .section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .section ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.55;
+    }
+    .section ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+      font-size: 0.75rem;
+    }
+    .visual-placeholder {
+      background: var(--navy-mid);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .visual-placeholder .vp-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .visual-placeholder .vp-desc {
+      font-size: 0.85rem;
+      color: var(--steel);
+    }
+    .github-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.6rem 1.2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, border-color 0.2s;
+      margin-top: 0.5rem;
+    }
+    .github-block:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: rgba(201,168,76,0.6);
+    }
+    .github-block.dim {
+      color: var(--steel);
+      border-color: rgba(107,140,174,0.2);
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .back-bar { padding: 1rem 1.25rem; }
+      .page { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="back-bar">
+    <a class="back-link" href="index.html">← Back to Portfolio</a>
+    <div class="back-brand">Grey <span>Tiger</span> Technology</div>
+  </div>
+
+  <div class="page">
+
+    <div class="proj-eyebrow">
+      <span>BTS / DOT · Bureau of Transportation Statistics</span>
+      <span class="status-tag">In Progress</span>
+    </div>
+    <h1 class="proj-title">Flight Delay<br/>Forecasting Model</h1>
+    <div class="proj-tags">
+      <span class="tag">Python</span>
+      <span class="tag">Regression</span>
+      <span class="tag">BTS Data</span>
+      <span class="tag">Scikit-learn</span>
+      <span class="tag">Power BI</span>
+      <span class="tag">Feature Engineering</span>
+    </div>
+    <div class="proj-divider"></div>
+
+    <div class="section">
+      <div class="section-label">01 · Overview</div>
+      <h2>Project Overview</h2>
+      <p>
+        This project builds a machine learning model to predict commercial flight delays
+        using the Bureau of Transportation Statistics (BTS) On-Time Performance dataset —
+        one of the most comprehensive publicly available sources of U.S. domestic flight data.
+      </p>
+      <p>
+        The model identifies which combination of factors — carrier, route, season,
+        departure time, and weather category — most reliably predicts a delay, and by how
+        much. Results are presented with feature importance reporting so the drivers of
+        delay are clearly communicated alongside the predictions themselves.
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">02 · Methodology</div>
+      <h2>Methodology</h2>
+      <p>The project uses a supervised regression approach with the following pipeline:</p>
+      <ul>
+        <li>Data sourced from BTS On-Time Performance database — monthly CSVs covering U.S. domestic carriers</li>
+        <li>Feature engineering applied to extract departure hour, day-of-week, season, and route-level delay history</li>
+        <li>Weather category joined to flight records using FAA weather delay classifications</li>
+        <li>Baseline linear regression model established, then compared against a Random Forest regressor for accuracy</li>
+        <li>Feature importance extracted from the Random Forest model to rank delay predictors</li>
+        <li>Model performance evaluated using RMSE and MAE across carrier and route segments</li>
+        <li>Power BI dashboard built to visualize predicted vs. actual delay by route, carrier, and season</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">03 · Visuals</div>
+      <h2>Dashboard & Charts</h2>
+      <p>Power BI dashboard and model output charts will be embedded here upon project completion.</p>
+
+      <div class="visual-placeholder">
+        <div class="vp-label">Power BI Dashboard</div>
+        <div class="vp-desc">Interactive dashboard — Coming Soon</div>
+      </div>
+
+      <div class="visual-placeholder">
+        <div class="vp-label">Feature Importance Chart · Delay Predictors Ranked</div>
+        <div class="vp-desc">Scikit-learn / Matplotlib output — Coming Soon</div>
+      </div>
+
+      <div class="visual-placeholder">
+        <div class="vp-label">Predicted vs. Actual Delay · Model Accuracy</div>
+        <div class="vp-desc">Python regression output — Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">04 · Findings</div>
+      <h2>Key Findings</h2>
+      <p>Findings will be documented here upon model completion. Expected outputs include:</p>
+      <ul>
+        <li>Top predictors of flight delay ranked by feature importance</li>
+        <li>Routes and carriers with the highest predicted delay risk</li>
+        <li>Seasonal and time-of-day patterns in delay probability</li>
+        <li>Model accuracy metrics: RMSE and MAE by carrier segment</li>
+        <li>Comparison of linear regression vs. Random Forest performance</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">05 · Code</div>
+      <h2>Source Code</h2>
+      <p>Full Python analysis code, model training pipeline, and documentation available on GitHub.</p>
+      <a class="github-block dim" href="#">GitHub Repository — Coming Soon</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

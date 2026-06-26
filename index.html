@@ -1,893 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Grey Tiger Technology | Data Analytics & Government Consulting</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grey Tiger Technology LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:    #F5F0E8;
-      --navy-2:  #EDE8DC;
-      --navy-3:  #FDFAF5;
-      --slate:   #C8C2B6;
-      --slate-2: #A89F94;
-      --muted:   #6B6560;
-      --text:    #2E2A25;
-      --light:   #1C1917;
-      --accent:  #1D4A3E;
-      --accent-d:#163830;
-      --border:  rgba(28,25,23,0.1);
+      --navy-deep:   #0A1628;
+      --navy-mid:    #1E3A5F;
+      --navy-light:  #2A4F7A;
+      --gold:        #C9A84C;
+      --gold-dim:    #9A7A35;
+      --steel:       #6B8CAE;
+      --off-white:   #F0F4F8;
+      --muted:       #A8BCCC;
+      --border:      rgba(201,168,76,0.25);
+      --card-border: rgba(255,255,255,0.06);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
+      background: var(--navy-deep);
+      color: var(--off-white);
       font-family: 'Inter', sans-serif;
-      background-color: var(--navy);
-      color: var(--text);
-
-      line-height: 1.6;
       font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      background: rgba(245, 240, 232, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(8px);
+      z-index: 100;
     }
 
     .nav-logo {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 20px;
+      font-size: 1.25rem;
       letter-spacing: 0.08em;
+      color: var(--off-white);
       text-transform: uppercase;
-      color: var(--light);
-      text-decoration: none;
     }
 
-    .nav-logo span { color: var(--accent); }
+    .nav-logo span { color: var(--gold); }
 
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 2rem;
       list-style: none;
     }
 
     .nav-links a {
-      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--steel);
+      text-decoration: none;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s;
+      transition: color 0.2s;
     }
 
-    .nav-links a:hover {
-      background: var(--accent);
-      color: var(--navy);
-    }
-
-    .nav-cta {
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 8px 20px;
-      border: 1px solid var(--accent);
-      border-radius: 2px;
-      color: var(--accent) !important;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .nav-cta:hover {
-      background: var(--accent);
-      color: var(--navy) !important;
-    }
+    .nav-links a:hover { color: var(--gold); }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 48px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Tiger stripe scan-line — one moment of atmosphere */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        -65deg,
-        transparent,
-        transparent 38px,
-        rgba(28, 25, 23, 0.03) 38px,
-        rgba(28, 25, 23, 0.03) 40px
-      );
-      animation: stripeScroll 18s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes stripeScroll {
-      0%   { background-position: 0 0; }
-      100% { background-position: 200px 200px; }
-    }
-
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
+      padding: 5rem 2.5rem 4rem;
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 80px;
+      grid-template-columns: 1fr auto;
       align-items: center;
-      position: relative;
-      z-index: 1;
+      gap: 2rem;
+    }
+
+    .hero-text { max-width: 620px; }
+
+    .hero-logo {
+      width: 420px;
+      flex-shrink: 0;
+      opacity: 0.95;
     }
 
     .hero-eyebrow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.2em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      color: var(--gold);
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
+      margin-bottom: 1.25rem;
     }
 
     .hero h1 {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: clamp(48px, 6vw, 76px);
-      line-height: 1.0;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      line-height: 1.05;
       letter-spacing: -0.01em;
-      text-transform: uppercase;
-      color: var(--light);
-      margin-bottom: 28px;
+      color: var(--off-white);
+      margin-bottom: 1.5rem;
     }
 
     .hero h1 em {
       font-style: normal;
-      color: var(--accent);
+      color: var(--gold);
     }
 
     .hero-sub {
-      font-size: 18px;
-      font-weight: 300;
+      font-size: 1.05rem;
       color: var(--muted);
-      line-height: 1.7;
       max-width: 520px;
-      margin-bottom: 40px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 14px 32px;
-      background: var(--accent);
-      color: var(--navy);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-d);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      display: inline-block;
-      padding: 13px 32px;
-      border: 1px solid var(--slate);
-      color: var(--text);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 500;
-      font-size: 15px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .btn-ghost:hover {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--navy);
-    }
-
-    /* Hero credential card */
-    .hero-cred {
-      background: var(--navy-3);
-      border: 1px solid var(--border);
-      border-top: 2px solid var(--accent);
-      padding: 32px;
-      border-radius: 2px;
-    }
-
-    .cred-label {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .cred-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .cred-item:last-of-type { border-bottom: none; }
-
-    .cred-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-      margin-top: 7px;
-    }
-
-    .cred-item p {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .cred-item strong {
-      display: block;
-      font-size: 13px;
-      color: var(--light);
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* ── SECTION SHARED ── */
-    section {
-      padding: 96px 48px;
-    }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-eyebrow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: clamp(32px, 4vw, 48px);
-      text-transform: uppercase;
-      color: var(--light);
-      line-height: 1.05;
-      letter-spacing: 0.01em;
-      margin-bottom: 16px;
-    }
-
-    .section-lead {
-      font-size: 17px;
-      font-weight: 300;
-      color: var(--muted);
-      max-width: 560px;
       line-height: 1.7;
     }
 
-    /* ── SERVICES ── */
-    #services { background: var(--navy-2); }
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold-dim), transparent);
+      margin: 3.5rem 0 0;
+      grid-column: 1 / -1;
+    }
 
-    .services-header {
+    /* ── CAPABILITY STRIP ── */
+    .capability {
+      padding: 3rem 2.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .capability-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: end;
-      margin-bottom: 64px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .service-card {
-      background: var(--navy-2);
-      padding: 36px 32px;
-      transition: background 0.2s;
-    }
-
-    .service-card:hover { background: var(--navy-3); }
-
-    .service-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      background: rgba(29, 74, 62, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .service-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--accent);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .service-card h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--light);
-      margin-bottom: 12px;
-    }
-
-    .service-card p {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* ── ABOUT / DIFFERENTIATORS ── */
-    #about { background: var(--navy); }
-
-    .about-grid {
-      max-width: 720px;
-    }
-
-    .diff-list {
-      margin-top: 40px;
+    .cap-item {
       display: flex;
       flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cap-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .cap-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+    }
+
+    .cap-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      padding: 3.5rem 2.5rem 1.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--off-white);
+    }
+
+    .section-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--steel);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── PROJECT CARDS ── */
+    .projects {
+      padding: 0 2.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: var(--navy-mid);
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative;
+    }
+
+    /* Signature element: gold left-border classification marker */
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(201,168,76,0.35);
+      transform: translateY(-2px);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-inner {
+      padding: 1.6rem 1.6rem 1.6rem 1.9rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
       gap: 0;
     }
 
-    .diff-item {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 20px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-      align-items: start;
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
     }
 
-    .diff-item:first-child { border-top: 1px solid var(--border); }
-
-    .diff-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px;
+    .card-domain {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--steel);
       letter-spacing: 0.1em;
-      color: var(--accent);
-      padding-top: 3px;
-    }
-
-    .diff-item h4 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 17px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--light);
-      margin-bottom: 6px;
     }
 
-    .diff-item p {
-      font-size: 14px;
-      font-weight: 300;
+    /* Classification-style status tag */
+    .status-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    .status-tag.complete {
+      background: rgba(201,168,76,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+
+    .status-tag.progress {
+      background: rgba(107,140,174,0.12);
+      color: var(--steel);
+      border: 1px solid rgba(107,140,174,0.25);
+    }
+
+    .card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+      color: var(--off-white);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.6;
+      flex: 1;
+      margin-bottom: 1.2rem;
     }
 
-    /* ── CONTACT ── */
-    #contact { background: var(--navy-2); }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .contact-info {
+    .card-tags {
       display: flex;
-      flex-direction: column;
-      gap: 32px;
-      margin-top: 40px;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
     }
 
-    .contact-row {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .contact-row svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--accent);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .contact-row strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--steel);
+      background: rgba(107,140,174,0.08);
+      border: 1px solid rgba(107,140,174,0.2);
+      padding: 0.18rem 0.5rem;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--light);
-      margin-bottom: 4px;
     }
 
-    .contact-row p, .contact-row a {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--muted);
+    .card-footer {
+      border-top: 1px solid var(--card-border);
+      padding: 0.9rem 1.9rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .card-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--gold);
       text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       transition: color 0.2s;
     }
 
-    .contact-row a:hover { color: var(--accent); }
+    .card-link:hover { color: #e0c070; }
 
-    /* Contact form */
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .card-link.dim {
+      color: var(--steel);
+      cursor: default;
+      pointer-events: none;
     }
 
-    .form-row {
+    /* ── ABOUT ── */
+    .about {
+      border-top: 1px solid var(--card-border);
+      padding: 4rem 2.5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 4rem;
+      max-width: 1100px;
     }
 
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .field-group label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-    }
-
-    .field-group input,
-    .field-group textarea,
-    .field-group select {
-      background: var(--navy);
-      border: 1px solid var(--slate);
-      border-radius: 2px;
-      padding: 12px 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-      resize: vertical;
-    }
-
-    .field-group input:focus,
-    .field-group textarea:focus,
-    .field-group select:focus {
-      border-color: var(--accent);
-    }
-
-    .field-group select {
-      appearance: none;
-      cursor: pointer;
-    }
-
-    .field-group textarea { min-height: 120px; }
-
-    .form-submit {
-      width: 100%;
-      padding: 16px;
-      background: var(--accent);
-      border: none;
-      border-radius: 2px;
+    .about-left h2 {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 16px;
-      letter-spacing: 0.12em;
+      font-size: 1.8rem;
       text-transform: uppercase;
-      color: var(--navy);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      margin-top: 8px;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      color: var(--off-white);
     }
 
-    .form-submit:hover {
-      background: var(--accent-d);
-      transform: translateY(-1px);
+    .about-left p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+
+    .about-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .about-right h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .capability-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .capability-list li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .capability-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+      font-size: 0.75rem;
+    }
+
+    .naics-block {
+      margin-top: 0.25rem;
+    }
+
+    .naics-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .naics-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gold);
+      min-width: 72px;
+    }
+
+    .naics-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
     }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--navy);
-      border-top: 1px solid var(--border);
-      padding: 40px 48px;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
+      border-top: 1px solid var(--card-border);
+      padding: 2rem 2.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
     }
 
-    .footer-logo {
+    .footer-brand {
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      letter-spacing: 0.1em;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: var(--steel);
       text-transform: uppercase;
-      color: var(--muted);
     }
 
-    .footer-logo span { color: var(--accent); }
-
-    footer p {
-      font-size: 13px;
-      color: var(--muted);
+    .footer-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--steel);
+      letter-spacing: 0.06em;
     }
-
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    footer a:hover { color: var(--amber); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      nav ul { display: none; }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.25rem 2rem; grid-template-columns: 1fr; }
+      .hero-logo { width: 180px; margin: 0 auto; }
+      .capability { padding: 2rem 1.25rem; }
+      .section-header { padding: 2.5rem 1.25rem 1rem; }
+      .projects { padding: 0 1.25rem 3rem; grid-template-columns: 1fr; }
+      .about { padding: 2.5rem 1.25rem; grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 1.5rem 1.25rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
 
-      .hero { padding: 100px 24px 60px; }
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-      .hero-cred { display: none; }
-
-      section { padding: 72px 24px; }
-      .services-header { grid-template-columns: 1fr; gap: 24px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { padding: 32px 24px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
+    @media (prefers-reduced-motion: reduce) {
+      .card { transition: none; }
+      .card::before { transition: none; }
     }
   </style>
 </head>
-
 <body>
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Grey <span>Tiger</span> Technology</a>
+    <div class="nav-logo">Grey <span>Tiger</span> Technology</div>
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+      <li><a href="mailto:contact@greytiger.tech">Contact</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
-  <header class="hero" id="home">
-    <div class="hero-inner">
-      <div>
-        <p class="hero-eyebrow">Data Analytics &amp; IT Consulting</p>
-        <h1>Turning Data<br>Into <em>Decisions</em></h1>
-        <p class="hero-sub">Grey Tiger Technology delivers data visualization, business intelligence, and analytics consulting — built on real compliance experience with FAA and federal standards.</p>
-        <div class="hero-actions">
-          <a href="#services" class="btn-primary">Explore Services</a>
-          <a href="#contact" class="btn-ghost">Start a Conversation</a>
-        </div>
+  <section style="max-width:1200px; margin:0 auto;">
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Data Analytics &<br /><em>Applied Statistics</em><br />for Government Work</h1>
+        <p class="hero-sub">
+          Independent analytics and IT consulting grounded in FAA compliance,
+          DOD data operations, and federal reporting standards.
+          Built for government contracts. Proven in regulated environments.
+        </p>
       </div>
 
-      <div class="hero-cred">
-        <p class="cred-label">Why clients trust us</p>
+      <!-- LOGO MARK -->
+      <svg class="hero-logo" viewBox="0 0 500 330" xmlns="http://www.w3.org/2000/svg" aria-label="Grey Tiger Technology mark">
+        <!-- HEXAGONAL SHIELD OUTER -->
+        <polygon points="250,10 346,63 346,167 250,220 154,167 154,63"
+                 fill="#12223A" stroke="#C9A84C" stroke-width="1.4"/>
+        <!-- HEXAGONAL SHIELD INNER -->
+        <polygon points="250,18 338,68 338,162 250,212 162,162 162,68"
+                 fill="#0D1B2E"/>
+        <!-- Shield corner dots -->
+        <circle cx="250" cy="13"  r="2" fill="#C9A84C" opacity="0.5"/>
+        <circle cx="343" cy="65"  r="2" fill="#C9A84C" opacity="0.5"/>
+        <circle cx="343" cy="165" r="2" fill="#C9A84C" opacity="0.5"/>
+        <circle cx="250" cy="217" r="2" fill="#C9A84C" opacity="0.5"/>
+        <circle cx="157" cy="165" r="2" fill="#C9A84C" opacity="0.5"/>
+        <circle cx="157" cy="65"  r="2" fill="#C9A84C" opacity="0.5"/>
 
-        <div class="cred-item">
-          <div class="cred-dot"></div>
-          <p><strong>Federal Compliance Background</strong>FAA regulatory standards and DOD-level data work inform every engagement.</p>
+        <!-- GRAPH MARK — center 250,115 -->
+        <g transform="translate(250,115)">
+          <!-- OUTER RING -->
+          <circle cx="0" cy="0" r="72" fill="none" stroke="#C9A84C" stroke-width="1.1" opacity="0.4"/>
+          <!-- CARDINAL TICKS -->
+          <line x1="0"   y1="-72" x2="0"   y2="-79" stroke="#C9A84C" stroke-width="1.8" opacity="0.7"/>
+          <line x1="72"  y1="0"   x2="79"  y2="0"   stroke="#C9A84C" stroke-width="1.8" opacity="0.7"/>
+          <line x1="0"   y1="72"  x2="0"   y2="79"  stroke="#C9A84C" stroke-width="1.8" opacity="0.7"/>
+          <line x1="-72" y1="0"   x2="-79" y2="0"   stroke="#C9A84C" stroke-width="1.8" opacity="0.7"/>
+          <!-- CROSSHAIR AXES -->
+          <line x1="-72" y1="0"  x2="72" y2="0"  stroke="#C9A84C" stroke-width="0.7" opacity="0.25"/>
+          <line x1="0"  y1="-72" x2="0"  y2="72" stroke="#C9A84C" stroke-width="0.7" opacity="0.25"/>
+          <!-- AXIS ARROWS -->
+          <path d="M 68,-3.5 L 73,0 L 68,3.5"  fill="none" stroke="#C9A84C" stroke-width="1.1" opacity="0.5" stroke-linejoin="round"/>
+          <path d="M -3.5,68 L 0,73 L 3.5,68" fill="none" stroke="#C9A84C" stroke-width="1.1" opacity="0.5" stroke-linejoin="round"/>
+          <!-- SUBTLE GRID -->
+          <line x1="-72" y1="-36" x2="72" y2="-36" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="2 5" opacity="0.18"/>
+          <line x1="-72" y1="36"  x2="72" y2="36"  stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="2 5" opacity="0.18"/>
+          <line x1="-36" y1="-72" x2="-36" y2="72" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="2 5" opacity="0.18"/>
+          <line x1="36"  y1="-72" x2="36"  y2="72" stroke="#C9A84C" stroke-width="0.5" stroke-dasharray="2 5" opacity="0.18"/>
+          <!-- BEZIER CURVE -->
+          <path d="M -52,43 C -24,40 -8,16 9,-9 C 25,-32 38,-49 56,-57"
+                fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+          <!-- AREA FILL -->
+          <path d="M -52,43 C -24,40 -8,16 9,-9 C 25,-32 38,-49 56,-57 L 56,54 L -52,54 Z"
+                fill="#C9A84C" opacity="0.05"/>
+          <!-- DATA POINTS -->
+          <circle cx="-52" cy="43"  r="3.5" fill="#C9A84C" opacity="0.5"/>
+          <circle cx="38"  cy="-42" r="3.5" fill="#C9A84C" opacity="0.75"/>
+          <circle cx="56"  cy="-57" r="3.5" fill="#C9A84C" opacity="0.85"/>
+          <!-- CENTER BULLSEYE -->
+          <circle cx="0" cy="0" r="12" fill="#0D1B2E" stroke="#C9A84C" stroke-width="1.3" opacity="0.9"/>
+          <circle cx="0" cy="0" r="5"  fill="#C9A84C"/>
+        </g>
+
+        <!-- WORDMARK BELOW SHIELD -->
+        <text x="250" y="258"
+              text-anchor="middle"
+              font-family="'Barlow Condensed','Arial Narrow',sans-serif"
+              font-weight="700"
+              font-size="42"
+              fill="#C9A84C"
+              letter-spacing="1">GREY TIGER TECHNOLOGY</text>
+        <text x="250" y="290"
+              text-anchor="middle"
+              font-family="'JetBrains Mono','Courier New',monospace"
+              font-weight="400"
+              font-size="18"
+              fill="#6B8CAE"
+              letter-spacing="1">DATA ANALYTICS · SAINT GEORGE, UT</text>
+      </svg>
+
+      <div class="hero-divider"></div>
+    </div>
+
+    <!-- CAPABILITY STRIP -->
+    <div class="capability">
+      <div class="capability-grid">
+        <div class="cap-item">
+          <span class="cap-label">Domain</span>
+          <span class="cap-title">Aviation & Regulatory Data</span>
+          <span class="cap-desc">FAA CASS compliance, safety trend analysis, and federal surveillance reporting.</span>
         </div>
-
-        <div class="cred-item">
-          <div class="cred-dot"></div>
-          <p><strong>Real Dashboard Experience</strong>Dashboards presented directly to federal agencies — built to perform under scrutiny.</p>
+        <div class="cap-item">
+          <span class="cap-label">Methods</span>
+          <span class="cap-title">Statistical Modeling</span>
+          <span class="cap-desc">Regression, time-series forecasting, and inferential analysis on public federal datasets.</span>
         </div>
-
-        <div class="cred-item">
-          <div class="cred-dot"></div>
-          <p><strong>Small Business Focused</strong>Right-sized engagements for organizations that need expertise without enterprise overhead.</p>
+        <div class="cap-item">
+          <span class="cap-label">Delivery</span>
+          <span class="cap-title">Dashboard & Visualization</span>
+          <span class="cap-desc">Power BI and Python-based dashboards presented directly to FAA and DOD stakeholders.</span>
+        </div>
+        <div class="cap-item">
+          <span class="cap-label">Credentials</span>
+          <span class="cap-title">MMIS · SAM.gov Registered</span>
+          <span class="cap-desc">Master's in Management Information Systems. Active SAM.gov registration for federal contracting.</span>
         </div>
       </div>
     </div>
-  </header>
 
-  <div class="divider"></div>
+    <!-- PROJECTS HEADER -->
+    <div class="section-header" id="projects">
+      <h2>Projects</h2>
+      <span class="section-count">3 active · public datasets</span>
+    </div>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="section-inner">
-      <div class="services-header">
-        <div>
-          <p class="section-eyebrow">What We Do</p>
-          <h2 class="section-title">Our Core<br>Capabilities</h2>
+    <!-- PROJECT CARDS -->
+    <div class="projects">
+
+      <!-- Card 1: Aviation Safety Trend Analysis -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <span class="card-domain">FAA / ASRS</span>
+            <span class="status-tag progress">In Progress</span>
+          </div>
+          <h3>Aviation Safety Trend Analysis</h3>
+          <p class="card-desc">
+            Time-series analysis of NASA's Aviation Safety Reporting System (ASRS) dataset 
+            to surface incident patterns by event type, aircraft category, and reporting year. 
+            Mirrors the CASS surveillance methodology used in FAA regulatory compliance work.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Time-Series</span>
+            <span class="tag">ASRS Data</span>
+            <span class="tag">Power BI</span>
+          </div>
         </div>
-        <p class="section-lead">We translate raw, messy organizational data into clear, actionable insight — from initial strategy through live dashboards and ongoing support.</p>
+        <div class="card-footer">
+          <a class="card-link" href="project-aviation-safety.html">View Project</a>
+          <a class="card-link dim" href="#">GitHub — Coming Soon</a>
+        </div>
       </div>
 
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <!-- Card 2: Flight Delay Forecasting -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <span class="card-domain">BTS / DOT</span>
+            <span class="status-tag progress">In Progress</span>
           </div>
-          <h3>Data Visualization</h3>
-          <p>Interactive dashboards and custom visual analytics tailored to how your team actually makes decisions — built in Tableau, Power BI, or custom web solutions.</p>
+          <h3>Flight Delay Forecasting Model</h3>
+          <p class="card-desc">
+            Regression and machine learning model predicting flight delays using Bureau of 
+            Transportation Statistics On-Time Performance data. Analysis covers carrier, 
+            route, season, and weather-category variables with feature importance reporting.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Regression</span>
+            <span class="tag">BTS Data</span>
+            <span class="tag">Scikit-learn</span>
+          </div>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          </div>
-          <h3>Business Intelligence</h3>
-          <p>Transform fragmented data sources into a single reliable view of operations. We design BI infrastructure that scales with your organization.</p>
+        <div class="card-footer">
+          <a class="card-link" href="project-flight-delay.html">View Project</a>
+          <a class="card-link dim" href="#">GitHub — Coming Soon</a>
         </div>
+      </div>
 
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <!-- Card 3: FAA Airmen Certification -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <span class="card-domain">FAA Data Services</span>
+            <span class="status-tag progress">In Progress</span>
           </div>
-          <h3>Analytics Consulting</h3>
-          <p>Strategy-level guidance for organizations building or maturing their data practice — from tool selection to compliance-ready reporting frameworks.</p>
+          <h3>FAA Airmen Certification Statistics</h3>
+          <p class="card-desc">
+            Demographic and longitudinal analysis of FAA airmen certification data to identify 
+            trends in pilot workforce composition, certificate type growth, and regional 
+            distribution. Interactive visualization built for public-sector audience review.
+          </p>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Demographics</span>
+            <span class="tag">FAA Data</span>
+            <span class="tag">D3.js</span>
+          </div>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3>Compliance Reporting</h3>
-          <p>Data pipelines and audit-ready reports designed around federal and regulatory requirements — built with the discipline of FAA and IOSA standards.</p>
+        <div class="card-footer">
+          <a class="card-link" href="project-airmen-certification.html">View Project</a>
+          <a class="card-link dim" href="#">GitHub — Coming Soon</a>
         </div>
+      </div>
 
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-          </div>
-          <h3>Data Infrastructure</h3>
-          <p>Database design, ETL processes, and data architecture that ensures your analytics are fast, accurate, and maintainable long-term.</p>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="about" id="about">
+      <div class="about-left">
+        <h2>About</h2>
+        <p>
+          Grey Tiger Technology LLC is a solo data analytics and IT consulting firm based in 
+          Saint George, Utah. Founded by Greyson, a CASS Supervisor at SkyWest Airlines with 
+          direct experience building and presenting Power BI dashboards to FAA oversight personnel.
+        </p>
+        <p>
+          Analytical work spans aviation safety, regulatory compliance reporting, and DOD-adjacent 
+          data operations. Grey Tiger is positioned to support government subcontracting and 
+          prime contracting opportunities where rigorous data work and federal domain knowledge 
+          are required.
+        </p>
+        <p>
+          Active SAM.gov registrant. All project work uses publicly available federal datasets 
+          and is fully documented for review.
+        </p>
+      </div>
+      <div class="about-right">
+        <div>
+          <h3>Core Capabilities</h3>
+          <ul class="capability-list">
+            <li>Statistical analysis and predictive modeling</li>
+            <li>FAA regulatory data and CASS surveillance</li>
+            <li>Power BI dashboard design and federal briefing</li>
+            <li>DOD data operations and compliance reporting</li>
+            <li>Python · SQL · Excel · Power BI</li>
+          </ul>
         </div>
-
-        <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="naics-block">
+          <h3>NAICS Codes</h3>
+          <div class="naics-row">
+            <span class="naics-code">541511</span>
+            <span class="naics-desc">Custom Computer Programming Services</span>
           </div>
-          <h3>Government Contracting</h3>
-          <p>Small business data and IT services for government agencies — SAM.gov registered, structured to meet procurement and compliance requirements.</p>
+          <div class="naics-row">
+            <span class="naics-code">541512</span>
+            <span class="naics-desc">Computer Systems Design Services</span>
+          </div>
+          <div class="naics-row">
+            <span class="naics-code">541611</span>
+            <span class="naics-desc">Management Consulting Services</span>
+          </div>
+          <div class="naics-row">
+            <span class="naics-code">518210</span>
+            <span class="naics-desc">Data Processing & Hosting Services</span>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <div class="divider"></div>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-inner">
-      <div class="about-grid">
-
-        <div>
-          <p class="section-eyebrow">About the Firm</p>
-          <h2 class="section-title">Built on Real<br>Compliance Work</h2>
-          <p class="section-lead" style="margin-bottom: 0;">Grey Tiger Technology is a Saint George, Utah–based data analytics and IT consulting firm serving small businesses and government clients.</p>
-
-          <div class="diff-list">
-            <div class="diff-item">
-              <span class="diff-num">01</span>
-              <div>
-                <h4>Federal-Grade Precision</h4>
-                <p>Our work originates in regulated, high-stakes environments — FAA dashboard presentations and DOD data workflows — where accuracy isn't negotiable.</p>
-              </div>
-            </div>
-
-            <div class="diff-item">
-              <span class="diff-num">02</span>
-              <div>
-                <h4>Right-Sized for Small Business</h4>
-                <p>Enterprise rigor without the enterprise price tag. We scope engagements to deliver real value for lean organizations.</p>
-              </div>
-            </div>
-
-            <div class="diff-item">
-              <span class="diff-num">03</span>
-              <div>
-                <h4>End-to-End Ownership</h4>
-                <p>From data source to final presentation, we own the full pipeline — no hand-offs, no ambiguity about who's responsible for quality.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-inner">
-      <div class="contact-grid">
-
-        <div>
-          <p class="section-eyebrow">Get in Touch</p>
-          <h2 class="section-title">Let's Talk<br>About Your Data</h2>
-          <p class="section-lead">Whether you're starting from scratch or need a second opinion on an existing analytics setup, we're happy to have an initial conversation — no commitment required.</p>
-
-          <div class="contact-info">
-            <div class="contact-row">
-              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <div>
-                <strong>Email</strong>
-                <a href="mailto:greytigertech@gmail.com">greytigertech@gmail.com</a>
-              </div>
-            </div>
-
-            <div class="contact-row">
-              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div>
-                <strong>Location</strong>
-                <p>Saint George, Utah</p>
-              </div>
-            </div>
-
-            <div class="contact-row">
-              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              <div>
-                <strong>Government Contracting</strong>
-                <p>SAM.gov registered &amp; Utah state vendor enrolled</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="contact-form">
-            <div class="form-row">
-              <div class="field-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Jane Smith">
-              </div>
-              <div class="field-group">
-                <label for="org">Organization</label>
-                <input type="text" id="org" placeholder="Acme Agency">
-              </div>
-            </div>
-
-            <div class="field-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" placeholder="jane@acme.gov">
-            </div>
-
-            <div class="field-group">
-              <label for="service">Service Area</label>
-              <select id="service">
-                <option value="" disabled selected>Select one…</option>
-                <option>Data Visualization</option>
-                <option>Business Intelligence</option>
-                <option>Analytics Consulting</option>
-                <option>Compliance Reporting</option>
-                <option>Government Contracting</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div class="field-group">
-              <label for="message">Tell us about your project</label>
-              <textarea id="message" placeholder="Describe your data challenge or what you're hoping to build…"></textarea>
-            </div>
-
-            <button type="button" class="form-submit" onclick="handleSubmit()">Send Message</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
-      <span class="footer-logo">Grey <span>Tiger</span> Technology LLC</span>
-      <p>© 2026 Grey Tiger Technology LLC &nbsp;·&nbsp; Saint George, Utah &nbsp;·&nbsp; <a href="mailto:greytigertech@gmail.com">greytigertech@gmail.com</a></p>
-    </div>
+    <span class="footer-brand">Grey Tiger Technology LLC</span>
+    <span class="footer-meta">Saint George, UT · SAM.gov Registered · MMIS</span>
   </footer>
-
-  <script>
-    function handleSubmit() {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-      if (!name || !email || !message) {
-        alert('Please fill in your name, email, and message.');
-        return;
-      }
-      const mailto = `mailto:greytigertech@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
-      window.location.href = mailto;
-    }
-  </script>
 
 </body>
 </html>

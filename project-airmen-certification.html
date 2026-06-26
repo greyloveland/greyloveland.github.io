@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAA Airmen Certification Statistics — Grey Tiger Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy-deep:   #0A1628;
+      --navy-mid:    #1E3A5F;
+      --gold:        #C9A84C;
+      --gold-dim:    #9A7A35;
+      --steel:       #6B8CAE;
+      --off-white:   #F0F4F8;
+      --muted:       #A8BCCC;
+      --card-border: rgba(255,255,255,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy-deep);
+      color: var(--off-white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .back-bar {
+      padding: 1rem 2.5rem;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--steel);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold); }
+    .back-brand {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--off-white);
+      text-transform: uppercase;
+    }
+    .back-brand span { color: var(--gold); }
+    .page { max-width: 900px; margin: 0 auto; padding: 4rem 2.5rem 6rem; }
+    .proj-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .status-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      background: rgba(107,140,174,0.12);
+      color: var(--steel);
+      border: 1px solid rgba(107,140,174,0.25);
+    }
+    .proj-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      color: var(--off-white);
+      margin-bottom: 1.5rem;
+    }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 2.5rem;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--steel);
+      background: rgba(107,140,174,0.08);
+      border: 1px solid rgba(107,140,174,0.2);
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .proj-divider {
+      height: 1px;
+      background: linear-gradient(to right, var(--gold-dim), transparent);
+      margin-bottom: 3rem;
+    }
+    .section { margin-bottom: 3rem; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      color: var(--off-white);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+    .section p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+    .section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .section ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.55;
+    }
+    .section ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+      font-size: 0.75rem;
+    }
+    .visual-placeholder {
+      background: var(--navy-mid);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .visual-placeholder .vp-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .visual-placeholder .vp-desc {
+      font-size: 0.85rem;
+      color: var(--steel);
+    }
+    .github-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.6rem 1.2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, border-color 0.2s;
+      margin-top: 0.5rem;
+    }
+    .github-block:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: rgba(201,168,76,0.6);
+    }
+    .github-block.dim {
+      color: var(--steel);
+      border-color: rgba(107,140,174,0.2);
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .back-bar { padding: 1rem 1.25rem; }
+      .page { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="back-bar">
+    <a class="back-link" href="index.html">← Back to Portfolio</a>
+    <div class="back-brand">Grey <span>Tiger</span> Technology</div>
+  </div>
+
+  <div class="page">
+
+    <div class="proj-eyebrow">
+      <span>FAA Data Services · Public Airmen Registry</span>
+      <span class="status-tag">In Progress</span>
+    </div>
+    <h1 class="proj-title">FAA Airmen Certification<br/>Statistics</h1>
+    <div class="proj-tags">
+      <span class="tag">Python</span>
+      <span class="tag">Demographics</span>
+      <span class="tag">FAA Data</span>
+      <span class="tag">Power BI</span>
+      <span class="tag">Pandas</span>
+      <span class="tag">Longitudinal Analysis</span>
+    </div>
+    <div class="proj-divider"></div>
+
+    <div class="section">
+      <div class="section-label">01 · Overview</div>
+      <h2>Project Overview</h2>
+      <p>
+        This project performs a demographic and longitudinal analysis of the FAA's publicly
+        available Airmen Certification dataset — a registry of all certified pilots and
+        aviation personnel in the United States, updated regularly by the FAA's Civil
+        Aerospace Medical Institute.
+      </p>
+      <p>
+        The analysis tracks trends in pilot workforce composition over time, examining how
+        certificate types, ratings, and regional distribution have shifted. The resulting
+        dashboard is designed for public-sector audience review, presenting findings in a
+        format consistent with federal reporting standards.
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">02 · Methodology</div>
+      <h2>Methodology</h2>
+      <p>The analysis is structured around three analytical lenses — time, geography, and certificate type:</p>
+      <ul>
+        <li>Data sourced from FAA Data Services airmen certification flat files — publicly available and updated monthly</li>
+        <li>Records cleaned and normalized in Python, with certificate type and rating fields standardized across historical snapshots</li>
+        <li>Longitudinal analysis constructed by joining annual snapshots to track workforce changes over time</li>
+        <li>Geographic distribution mapped at the state level to identify regional concentration of certified airmen</li>
+        <li>Certificate type breakdown segmented by Student, Private, Commercial, ATP, and specialty ratings</li>
+        <li>Demographic trend analysis applied where age and medical class data are available</li>
+        <li>Power BI dashboard built for interactive filtering by state, certificate type, and year range</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">03 · Visuals</div>
+      <h2>Dashboard & Charts</h2>
+      <p>Power BI dashboard and supporting Python charts will be embedded here upon project completion.</p>
+
+      <div class="visual-placeholder">
+        <div class="vp-label">Power BI Dashboard</div>
+        <div class="vp-desc">Interactive dashboard — Coming Soon</div>
+      </div>
+
+      <div class="visual-placeholder">
+        <div class="vp-label">Certificate Growth by Type · Longitudinal Trend</div>
+        <div class="vp-desc">Python / Matplotlib output — Coming Soon</div>
+      </div>
+
+      <div class="visual-placeholder">
+        <div class="vp-label">Geographic Distribution · Certified Airmen by State</div>
+        <div class="vp-desc">Python choropleth map — Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">04 · Findings</div>
+      <h2>Key Findings</h2>
+      <p>Findings will be documented here upon analysis completion. Expected outputs include:</p>
+      <ul>
+        <li>Overall trend in total certified airmen in the U.S. over the past decade</li>
+        <li>Certificate types with the highest and lowest growth rates</li>
+        <li>States with the highest concentration of active certified pilots</li>
+        <li>Age distribution trends across certificate categories</li>
+        <li>Impact of the COVID-19 period on new certification rates</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">05 · Code</div>
+      <h2>Source Code</h2>
+      <p>Full Python analysis code, data pipeline, and documentation available on GitHub.</p>
+      <a class="github-block dim" href="#">GitHub Repository — Coming Soon</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
